@@ -1,0 +1,49 @@
+# Laravel specific files and directories
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+/storage/app/public
+/storage/debugbar
+/storage/logs
+/storage/framework/cache/data
+/storage/framework/sessions
+/storage/framework/testing
+/storage/framework/views
+/bootstrap/cache/*.php
+.env
+.env.example
+Homestead.yaml
+Homestead.json
+.idea
+.phpunit.result.cache
+.phpstorm.meta.php
+
+# Laravel Mix related files
+/public/js/*.map
+/public/css/*.map
+/public/mix-manifest.json
+/public/hot
+npm-debug.log
+yarn-error.log
+npm-debug.log.*
+
+# System files
+Thumbs.db
+.DS_Store
+
+# Composer related files
+composer.phar
+
+# IDE
+.idea
+*.iml
+
+# JetBrains
+.idea
+*.iws
+*.ipr
+*.iml
+
+# Mac
+.DS_Store
