@@ -19,6 +19,7 @@ class Permission extends Model
         'deleted_at',
     ];
 
+
     protected $fillable = [
         'title',
         'created_at',
