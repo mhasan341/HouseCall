@@ -63,13 +63,13 @@
 
 
             @if(Route::has('password.request'))
-                <p class="mb-1">
+                <p class="my-3">
                     <a href="{{ route('password.request') }}">
                         {{ trans('global.forgot_password') }}
                     </a>
                 </p>
             @endif
-            <p class="mb-1">
+            <p class="mb-2">
                 <a class="text-center" href="{{ route('register') }}">
                     {{ trans('global.register') }}
                 </a>

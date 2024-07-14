@@ -51,6 +51,12 @@
                         </button>
                     </div>
                 </div>
+
+                <p class="mt-3">
+                    <a class="text-center" href="{{ route('login') }}">
+                        {{ trans('global.login') }}
+                    </a>
+                </p>
             </form>
         </div>
     </div>

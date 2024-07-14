@@ -52,12 +52,13 @@ class AuthController extends Controller
         if (!auth()->attempt($credentials)) {
             return response()->json([
                 'status' => false,
-                'message' => 'The given data was invalid.',
-                'errors' => [
-                    'password' => [
-                        'Invalid credentials'
-                    ],
-                ]
+                'message' => 'The given input doesn\'t match with our records',
+// we could send these errors, but an attacker will know which one is wrong and then he may try bruteforce
+//                'errors' => [
+//                    'password' => [
+//                        'Invalid credentials'
+//                    ],
+//                ]
             ], 422);
         }
 
@@ -66,6 +67,7 @@ class AuthController extends Controller
 
         return response()->json([
             'status' => true,
+            'message' => "Successfully logged in",
             'access_token' => $authToken,
         ]);
     }
