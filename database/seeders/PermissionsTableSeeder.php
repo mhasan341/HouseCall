@@ -76,6 +76,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 17,
+                'title' => 'drug_create',
+            ],
+            [
+                'id'    => 18,
+                'title' => 'drug_edit',
+            ],
+            [
+                'id'    => 19,
+                'title' => 'drug_show',
+            ],
+            [
+                'id'    => 20,
+                'title' => 'drug_delete',
+            ],
+            [
+                'id'    => 21,
+                'title' => 'drug_access',
+            ],
+            [
+                'id'    => 22,
                 'title' => 'profile_password_edit',
             ],
         ];
