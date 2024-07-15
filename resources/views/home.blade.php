@@ -14,6 +14,7 @@
                     @endif
 
                         <div class="d-flex justify-content-around">
+                            @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
                             <!-- Total Users Card -->
                             <div class="col-md-4">
                                 <div class="card shadow-lg" style="border-left: 5px solid #007bff;">
@@ -31,7 +32,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            @endif
                             <!-- Total Drugs Card -->
                             <div class="col-md-4">
                                 <div class="card shadow-lg" style="border-left: 5px solid #28a745;">
