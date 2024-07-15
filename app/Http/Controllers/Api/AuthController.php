@@ -14,7 +14,7 @@ class AuthController extends Controller
         return Validator::make($data, [
             'name'     => ['required', 'string', 'max:255'],
             'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
         ]);
 
     }
@@ -26,6 +26,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'An error occurred',
+                // for registration we want to be specific which fields are missing
                 'errors' => $validator->errors()
             ], 422); // HTTP status code 422 Unprocessable Entity
         }
