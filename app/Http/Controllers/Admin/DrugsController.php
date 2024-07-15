@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateDrugRequest;
 use App\Models\Drug;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -76,11 +77,7 @@ class DrugsController extends Controller
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
 
-        $drug = Drug::create($data);
-
-        if ($media = $request->input('ck-media', false)) {
-            Media::whereIn('id', $media)->update(['model_id' => $drug->id]);
-        }
+        Drug::create($data);
 
         return redirect()->route('admin.drugs.index');
     }
