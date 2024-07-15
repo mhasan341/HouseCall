@@ -71,6 +71,9 @@ class DrugsController extends Controller
 
         return view('admin.drugs.create');
     }
+    //u607848850_hcthp
+//qA:Q4p!q]99
+//u607848850_ksa
 
     public function store(StoreDrugRequest $request)
     {
