@@ -5,6 +5,7 @@ Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
     }
+
     return redirect()->route('admin.home');
 });
 
@@ -26,12 +27,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Drugs
     Route::delete('drugs/destroy', 'DrugsController@massDestroy')->name('drugs.massDestroy');
-    Route::post('drugs/media', 'DrugsController@storeMedia')->name('drugs.storeMedia');
-    Route::post('drugs/ckmedia', 'DrugsController@storeCKEditorImages')->name('drugs.storeCKEditorImages');
     Route::resource('drugs', 'DrugsController');
 });
-
-
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
     if (file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php'))) {
@@ -41,5 +38,3 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
         Route::post('profile/destroy', 'ChangePasswordController@destroy')->name('password.destroyProfile');
     }
 });
-
-?>

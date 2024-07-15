@@ -31,11 +31,23 @@
                         {{ trans('cruds.drug.fields.name') }}
                     </th>
                     <th>
+                        {{ trans('cruds.drug.fields.description') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.drug.fields.side_effects') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
                 <tr>
                     <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -91,6 +103,7 @@
   }
   dtButtons.push(deleteButton)
 @endcan
+
   let dtOverrideGlobals = {
     buttons: dtButtons,
     processing: true,
@@ -114,6 +127,8 @@
 { data: 'id', name: 'id' },
 { data: 'rxcui', name: 'rxcui' },
 { data: 'name', name: 'name' },
+{ data: 'description', name: 'description' },
+{ data: 'side_effects', name: 'side_effects' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

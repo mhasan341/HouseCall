@@ -44,7 +44,7 @@
                             {{ trans('cruds.drug.fields.description') }}
                         </th>
                         <td>
-                            {!! $drug->description !!}
+                            {{ $drug->description }}
                         </td>
                     </tr>
                     <tr>
@@ -52,7 +52,7 @@
                             {{ trans('cruds.drug.fields.side_effects') }}
                         </th>
                         <td>
-                            {!! $drug->side_effects !!}
+                            {{ $drug->side_effects }}
                         </td>
                     </tr>
                 </tbody>
