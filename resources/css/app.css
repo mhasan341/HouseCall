@@ -1,0 +1,8 @@
+.neumorphic-card {
+    background: #e0e5ec;
+    border-radius: 15px;
+    box-shadow: 9px 9px 16px #a3b1c6,
+    -9px -9px 16px #ffffff;
+    padding: 20px;
+    margin: 20px;
+}

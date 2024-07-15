@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-<div class="content">
-    <div class="row">
-        <div class="col-lg-12">
+<div class="container">
             <div class="card">
                 <div class="card-header">
                     Dashboard
@@ -15,32 +13,48 @@
                         </div>
                     @endif
 
-                        <!-- Total Users Card -->
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">Total Users</div>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $totalUsers }}</h5>
-                                    <p class="card-text">Total number of users in the database.</p>
+                        <div class="d-flex justify-content-around">
+                            <!-- Total Users Card -->
+                            <div class="col-md-4">
+                                <div class="card shadow-lg" style="border-left: 5px solid #007bff;">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h5 class="card-title text-primary text-bold">Total Users</h5>
+                                                <h3 class="card-text">{{ $totalUsers }}</h3>
+
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-users fa-3x text-primary"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Total Drugs Card -->
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">Total Drugs Saved</div>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $totalDrugs }}</h5>
-                                    <p class="card-text">Total number of drugs saved by you.</p>
+                            <!-- Total Drugs Card -->
+                            <div class="col-md-4">
+                                <div class="card shadow-lg" style="border-left: 5px solid #28a745;">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h5 class="card-title text-success text-bold">Total Drugs Saved</h5>
+                                                <h3 class="card-text">{{ $totalDrugs }}</h3>
+
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-pills fa-3x text-success"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
 
-
-                </div>
-            </div>
         </div>
+
+
     </div>
 </div>
 @endsection
