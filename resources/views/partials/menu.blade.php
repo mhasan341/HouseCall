@@ -1,8 +1,10 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: 917px;">
+<aside class="main-sidebar sidebar-light-primary elevation-4" style="min-height: 917px;">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
-        <span class="brand-text font-weight-light">{{ trans('panel.site_title') }}</span>
-    </a>
+    <div class="text-center my-3">
+        <a href="{{ url('/') }}">
+            <img src="{{ asset('assets/logo.png') }}" alt="HC Logo" class="img-fluid" style="max-width: 100px;">
+        </a>
+    </div>
 
     <!-- Sidebar -->
     <div class="sidebar">

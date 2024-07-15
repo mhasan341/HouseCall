@@ -24,7 +24,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Users
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::resource('users', 'UsersController');
+
+    // Drugs
+    Route::delete('drugs/destroy', 'DrugsController@massDestroy')->name('drugs.massDestroy');
+    Route::post('drugs/media', 'DrugsController@storeMedia')->name('drugs.storeMedia');
+    Route::post('drugs/ckmedia', 'DrugsController@storeCKEditorImages')->name('drugs.storeCKEditorImages');
+    Route::resource('drugs', 'DrugsController');
 });
+
+
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
     if (file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php'))) {
