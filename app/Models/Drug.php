@@ -23,7 +23,6 @@ class Drug extends Model
         'name',
         'description',
         'side_effects',
-        'user_id',
         'created_at',
         'updated_at',
         'deleted_at',

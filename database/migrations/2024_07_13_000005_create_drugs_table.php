@@ -12,7 +12,7 @@ class CreateDrugsTable extends Migration
             $table->bigIncrements('id');
             $table->string('rxcui');
             $table->string('name');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->longText('side_effects')->nullable();
             $table->timestamps();
         });

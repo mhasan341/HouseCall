@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateDrugRequest;
 use App\Http\Resources\Admin\DrugResource;
 use App\Models\Drug;
 use Gate;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -52,5 +53,57 @@ class DrugsApiController extends Controller
         $drug->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    // Performs a search request to NIH and return the data we need
+    public function search(Request $request)
+    {
+        $query = $request->input('drug_name');
+        $client = new Client();
+
+        try {
+            $response = $client->get("https://rxnav.nlm.nih.gov/REST/drugs.json?name={$query}");
+            $data = json_decode($response->getBody(), true);
+
+            $results = collect($data['drugGroup']['conceptGroup'])
+                ->flatMap(function ($group) {
+                    return $group['conceptProperties'] ?? [];
+                })
+                ->filter(function ($drug) {
+                    return $drug['tty'] === 'SBD';
+                })
+                ->map(function ($drug) {
+
+                    return [
+                        'rxcui' => $drug['rxcui'],
+                        'name' => $drug['name'],
+                        'description' => $drug['description'] ?? null,
+                        'side_effects' => $drug['side_effects'] ?? null,
+                    ];
+                })
+                ->take(5);
+
+            // saving to database for later use
+            foreach ($results as $drug) {
+                    Drug::create([
+                        'rxcui' => $drug["rxcui"],
+                        'name' => $drug["name"],
+                        'description' => $drug["description"],
+                        'side_effects' => $drug["side_effects"]
+                    ]);
+            }
+
+            // Return only rxcui and name in the response
+            $responseResults = $results->map(function ($drug) {
+                return [
+                    'rxcui' => $drug['rxcui'],
+                    'name' => $drug['name']
+                ];
+            });
+
+            return response()->json($responseResults);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to fetch drug data'], 500);
+        }
     }
 }

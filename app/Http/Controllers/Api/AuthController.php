@@ -12,7 +12,7 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name'     => ['required', 'string', 'max:255'],
+            'name'     => ['required', 'string', 'max:255', 'min:3'],
             'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
         ]);
@@ -28,7 +28,7 @@ class AuthController extends Controller
                 'message' => 'An error occurred',
                 // for registration we want to be specific which fields are missing
                 'errors' => $validator->errors()
-            ], 422); // HTTP status code 422 Unprocessable Entity
+            ], 200); // HTTP status code 200 because we need to show this
         }
 
         $user = User::create([
