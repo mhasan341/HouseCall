@@ -105,13 +105,13 @@ class DrugsApiController extends Controller
 
             return response()->json([
                 'status' => true,
-                'message' => 'Failed to fetch drug data',
+                'message' => 'Fetched medications successfully',
                 'data' => $responseResults
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Failed to fetch drug data'
+                'message' => 'Failed to fetch medications'
             ], 500);
         }
     }
