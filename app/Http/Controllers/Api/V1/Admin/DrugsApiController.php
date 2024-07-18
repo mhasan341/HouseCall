@@ -87,9 +87,7 @@ class DrugsApiController extends Controller
             foreach ($results as $drug) {
                     Drug::create([
                         'rxcui' => $drug["rxcui"],
-                        'name' => $drug["name"],
-                        'description' => $drug["description"],
-                        'side_effects' => $drug["side_effects"]
+                        'name' => $drug["name"]
                     ]);
             }
 
@@ -99,7 +97,7 @@ class DrugsApiController extends Controller
                     'rxcui' => $drug['rxcui'],
                     'name' => $drug['name']
                 ];
-            });
+            })->values();
 
             return response()->json($responseResults);
         } catch (\Exception $e) {
