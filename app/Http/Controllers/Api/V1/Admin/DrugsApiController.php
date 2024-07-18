@@ -103,9 +103,55 @@ class DrugsApiController extends Controller
                 ];
             })->values();
 
-            return response()->json($responseResults);
+            return response()->json([
+                'status' => true,
+                'message' => 'Failed to fetch drug data',
+                $responseResults
+            ]);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to fetch drug data'], 500);
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to fetch drug data'
+            ], 500);
         }
+    }
+
+    public function saveUserMedication(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'rxcui' => 'required|string',
+        ]);
+
+        // Get the authenticated user
+        $user = $request->user();
+
+        // Find the drug by rxcui
+        $drug = Drug::where('rxcui', $request->input('rxcui'))->firstOrFail();
+
+        // Attach the drug to the user's medications
+        $user->drugs()->syncWithoutDetaching($drug->id);
+
+        return response()->json(
+            [
+                'status' => true,
+                'message' => 'Medication saved successfully'
+            ]
+            , 201);
+    }
+
+    public function getUserMedication(Request $request)
+    {
+        // Get the authenticated user
+        $user = $request->user();
+        $drugs = $user->drugs()
+            ->get(['drugs.rxcui', 'drugs.name'])
+            ->makeHidden('pivot');
+
+
+        return response()->json([
+           'status' => true,
+           'data' => $drugs
+        ]);
     }
 }
