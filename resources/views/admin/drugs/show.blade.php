@@ -41,18 +41,26 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.drug.fields.description') }}
+                            {{ trans('cruds.drug.fields.synonym') }}
                         </th>
                         <td>
-                            {{ $drug->description }}
+                            {{ $drug->synonym }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.drug.fields.side_effects') }}
+                            {{ trans('cruds.drug.fields.language') }}
                         </th>
                         <td>
-                            {{ $drug->side_effects }}
+                            {{ $drug->language }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.drug.fields.psn') }}
+                        </th>
+                        <td>
+                            {{ $drug->psn }}
                         </td>
                     </tr>
                 </tbody>

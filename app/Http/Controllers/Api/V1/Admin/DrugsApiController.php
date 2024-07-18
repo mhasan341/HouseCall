@@ -62,7 +62,7 @@ class DrugsApiController extends Controller
         $client = new Client();
 
         try {
-            $response = $client->get("https://rxnav.nlm.nih.gov/REST/drugs.json?name={$query}");
+            $response = $client->get("https://rxnav.nlm.nih.gov/REST/drugs.json?name={$query}&expand=psn");
             $data = json_decode($response->getBody(), true);
 
             $results = collect($data['drugGroup']['conceptGroup'])
@@ -77,8 +77,9 @@ class DrugsApiController extends Controller
                     return [
                         'rxcui' => $drug['rxcui'],
                         'name' => $drug['name'],
-                        'description' => $drug['description'] ?? null,
-                        'side_effects' => $drug['side_effects'] ?? null,
+                        'synonym' => $drug['synonym'],
+                        'language' => $drug['language'],
+                        'psn' => $drug['psn']
                     ];
                 })
                 ->take(5);
@@ -87,7 +88,10 @@ class DrugsApiController extends Controller
             foreach ($results as $drug) {
                     Drug::create([
                         'rxcui' => $drug["rxcui"],
-                        'name' => $drug["name"]
+                        'name' => $drug["name"],
+                        'synonym' => $drug['synonym'],
+                        'language' => $drug['language'],
+                        'psn' => $drug['psn']
                     ]);
             }
 

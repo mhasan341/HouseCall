@@ -25,8 +25,17 @@ class UpdateDrugRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'description' => [
-                'required',
+            'synonym' => [
+                'string',
+                'nullable',
+            ],
+            'language' => [
+                'string',
+                'nullable',
+            ],
+            'psn' => [
+                'string',
+                'nullable',
             ],
         ];
     }

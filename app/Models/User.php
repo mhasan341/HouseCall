@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function drugs()
     {
-        return $this->hasMany(Drug::class);
+        return $this->belongsToMany(Drug::class, 'drug_user')->withTimestamps();
     }
 
     public function hasRole($role)

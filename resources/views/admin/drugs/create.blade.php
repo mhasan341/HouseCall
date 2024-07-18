@@ -26,20 +26,28 @@
                 <span class="help-block">{{ trans('cruds.drug.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="description">{{ trans('cruds.drug.fields.description') }}</label>
-                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description" required>{{ old('description') }}</textarea>
-                @if($errors->has('description'))
-                    <span class="text-danger">{{ $errors->first('description') }}</span>
+                <label for="synonym">{{ trans('cruds.drug.fields.synonym') }}</label>
+                <input class="form-control {{ $errors->has('synonym') ? 'is-invalid' : '' }}" type="text" name="synonym" id="synonym" value="{{ old('synonym', '') }}">
+                @if($errors->has('synonym'))
+                    <span class="text-danger">{{ $errors->first('synonym') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.drug.fields.description_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.drug.fields.synonym_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="side_effects">{{ trans('cruds.drug.fields.side_effects') }}</label>
-                <textarea class="form-control {{ $errors->has('side_effects') ? 'is-invalid' : '' }}" name="side_effects" id="side_effects">{{ old('side_effects') }}</textarea>
-                @if($errors->has('side_effects'))
-                    <span class="text-danger">{{ $errors->first('side_effects') }}</span>
+                <label for="language">{{ trans('cruds.drug.fields.language') }}</label>
+                <input class="form-control {{ $errors->has('language') ? 'is-invalid' : '' }}" type="text" name="language" id="language" value="{{ old('language', '') }}">
+                @if($errors->has('language'))
+                    <span class="text-danger">{{ $errors->first('language') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.drug.fields.side_effects_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.drug.fields.language_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="psn">{{ trans('cruds.drug.fields.psn') }}</label>
+                <input class="form-control {{ $errors->has('psn') ? 'is-invalid' : '' }}" type="text" name="psn" id="psn" value="{{ old('psn', '') }}">
+                @if($errors->has('psn'))
+                    <span class="text-danger">{{ $errors->first('psn') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.drug.fields.psn_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

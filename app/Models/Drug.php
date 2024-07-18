@@ -21,10 +21,16 @@ class Drug extends Model
     protected $fillable = [
         'rxcui',
         'name',
-        'description',
-        'side_effects',
+        'synonym',
+        'language',
+        'psn',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'drug_user')->withTimestamps();
+    }
 }

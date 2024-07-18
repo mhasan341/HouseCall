@@ -9,7 +9,6 @@ use App\Http\Requests\UpdateDrugRequest;
 use App\Models\Drug;
 use Gate;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -50,12 +49,6 @@ class DrugsController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });
-            $table->editColumn('description', function ($row) {
-                return $row->description ? $row->description : '';
-            });
-            $table->editColumn('side_effects', function ($row) {
-                return $row->side_effects ? $row->side_effects : '';
-            });
 
             $table->rawColumns(['actions', 'placeholder']);
 
@@ -77,10 +70,7 @@ class DrugsController extends Controller
 
     public function store(StoreDrugRequest $request)
     {
-        $data = $request->all();
-        $data['user_id'] = Auth::user()->id;
-
-        Drug::create($data);
+        $drug = Drug::create($request->all());
 
         return redirect()->route('admin.drugs.index');
     }
@@ -94,11 +84,7 @@ class DrugsController extends Controller
 
     public function update(UpdateDrugRequest $request, Drug $drug)
     {
-
-        $data = $request->all();
-        $data['user_id'] = Auth::user()->id;
-        $drug->update($data);
-
+        $drug->update($request->all());
 
         return redirect()->route('admin.drugs.index');
     }
