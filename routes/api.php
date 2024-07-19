@@ -11,7 +11,11 @@ Route::get('drugs/search', [DrugsApiController::class, 'search']);
 Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', 'middleware' => ['auth:sanctum']], function () {
     // Users
     Route::apiResource('users', 'UsersApiController');
-
     // Drugs
     Route::apiResource('drugs', 'DrugsApiController');
+    // Custom Drugs
+    Route::post('medication/save', [DrugsApiController::class, 'saveUserMedication']);
+    Route::delete('medication/delete', [DrugsApiController::class, 'deleteUserMedication']);
+    Route::get('medication/all', [DrugsApiController::class, 'getUserMedication']);
+    Route::get('medication/details', [DrugsApiController::class, 'getMedicationDetails']);
 });

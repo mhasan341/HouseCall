@@ -140,6 +140,28 @@ class DrugsApiController extends Controller
             , 201);
     }
 
+    public function deleteUserMedication(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'rxcui' => 'required|string',
+        ]);
+
+        // Get the authenticated user
+        $user = $request->user();
+
+        // remove the drug by rxcui
+        $drug = Drug::where('rxcui', $request->input('rxcui'))->firstOrFail();
+        $user->drugs()->detach($drug->id);
+
+        return response()->json(
+            [
+                'status' => true,
+                'message' => 'Medication removed successfully'
+            ]
+            , 201);
+    }
+
     public function getUserMedication(Request $request)
     {
         // Get the authenticated user
@@ -153,5 +175,22 @@ class DrugsApiController extends Controller
            'status' => true,
            'data' => $drugs
         ]);
+    }
+
+    public  function getMedicationDetails(Request $request){
+        // Validate the request
+        $request->validate([
+            'rxcui' => 'required|string',
+        ]);
+        // find the drug
+        $drug = Drug::where('rxcui', $request->input('rxcui'))->firstOrFail();
+        // return it
+        return response()->json(
+            [
+                'status' => true,
+                'message' => 'Medication fetched successfully',
+                'data'=> $drug
+            ]
+            , 201);
     }
 }
