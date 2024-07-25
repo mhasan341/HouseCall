@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Role;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -21,5 +22,15 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('users', [
             'email' => 'johndoe@example.com',
         ]);
+    }
+
+    public function a_user_can_have_roles()
+    {
+        $user = User::factory()->create();
+        $role = Role::factory()->create();
+
+        $user->roles()->attach($role);
+
+        $this->assertTrue($user->roles->contains($role));
     }
 }

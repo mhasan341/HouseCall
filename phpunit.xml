@@ -25,10 +25,10 @@
     </include>
   </source>
 
-  <coverage processUncoveredFiles="true">
-    <include>
-      <directory suffix=".php">./app</directory>
-    </include>
+  <coverage>
+<!--    <include>-->
+<!--      <directory suffix=".php">./app</directory>-->
+<!--    </include>-->
     <report>
       <html outputDirectory="tests/_output/coverage"/>
       <clover outputFile="tests/_output/coverage.xml"/>
