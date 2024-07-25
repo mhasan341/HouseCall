@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Drug;
+use App\Models\Permission;
 use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\Role;
@@ -39,5 +40,19 @@ class RoleTest extends TestCase
 
         $this->assertEquals($expectedJson['created_at'], $drug->toArray()['created_at']);
         $this->assertEquals($expectedJson['updated_at'], $drug->toArray()['updated_at']);
+    }
+
+    /** @test */
+    public function a_role_can_have_permissions()
+    {
+        $role = Role::factory()->create();
+        $permissions = Permission::factory()->count(3)->create();
+
+        $role->permissions()->attach($permissions);
+
+        $this->assertCount(3, $role->permissions);
+        foreach ($permissions as $permission) {
+            $this->assertTrue($role->permissions->contains($permission));
+        }
     }
 }
