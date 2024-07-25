@@ -49,3 +49,4 @@ composer.phar
 .DS_Store
 
 /reports
+/tests/_output/
