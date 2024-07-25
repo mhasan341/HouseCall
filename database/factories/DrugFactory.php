@@ -14,8 +14,9 @@ class DrugFactory extends Factory
         return [
             'rxcui' => $this->faker->randomNumber(),
             'name' => $this->faker->word,
-            'description' => $this->faker->sentence,
-            'side_effects' => $this->faker->sentence,
+            'synonym' => $this->faker->sentence,
+            'language' => $this->faker->sentence,
+            'psn' => $this->faker->word,
             'created_at' => now(),
             'updated_at' => now(),
         ];

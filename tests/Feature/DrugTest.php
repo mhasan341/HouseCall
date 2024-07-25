@@ -16,8 +16,9 @@ class DrugTest extends TestCase
         $drug = Drug::factory()->create([
             'rxcui' => 12345,
             'name' => 'Test Drug',
-            'description' => 'This is a test drug.',
-            'side_effects' => 'None',
+            'synonym' => 'Test Drug Synonym',
+            'language' => 'ENG',
+            'psn' => 'Test Drug PSN'
         ]);
 
         $this->assertDatabaseHas('drugs', [
