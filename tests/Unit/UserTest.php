@@ -38,23 +38,6 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function it_serializes_dates_in_custom_format()
-    {
-        $drug = Role::factory()->create([
-            'created_at' => Carbon::parse('2023-01-01 12:00:00'),
-            'updated_at' => Carbon::parse('2023-01-01 13:00:00'),
-        ]);
-
-        $expectedJson = [
-            'created_at' => '2023-01-01 12:00:00',
-            'updated_at' => '2023-01-01 13:00:00',
-        ];
-
-        $this->assertEquals($expectedJson['created_at'], $drug->toArray()['created_at']);
-        $this->assertEquals($expectedJson['updated_at'], $drug->toArray()['updated_at']);
-    }
-
-    /** @test */
     public function a_user_can_have_drugs()
     {
         $user = User::factory()->create();
@@ -83,5 +66,22 @@ class UserTest extends TestCase
         $user->roles()->attach($userRole);
 
         $this->assertFalse($user->is_admin);
+    }
+
+    /** @test */
+    public function it_serializes_dates_in_custom_format()
+    {
+        $drug = User::factory()->create([
+            'created_at' => Carbon::parse('2023-01-01 12:00:00'),
+            'updated_at' => Carbon::parse('2023-01-01 13:00:00'),
+        ]);
+
+        $expectedJson = [
+            'created_at' => '2023-01-01 12:00:00',
+            'updated_at' => '2023-01-01 13:00:00',
+        ];
+
+        $this->assertEquals($expectedJson['created_at'], $drug->toArray()['created_at']);
+        $this->assertEquals($expectedJson['updated_at'], $drug->toArray()['updated_at']);
     }
 }

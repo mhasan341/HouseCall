@@ -7,17 +7,21 @@ use App\Http\Requests\StoreDrugRequest;
 use App\Http\Requests\UpdateDrugRequest;
 use App\Http\Resources\Admin\DrugResource;
 use App\Models\Drug;
-use Gate;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class DrugsApiController extends Controller
 {
+    protected $client;
+
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+    }
+
     public function index()
     {
-        abort_if(Gate::denies('drug_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return new DrugResource(Drug::all());
     }
 
@@ -32,8 +36,6 @@ class DrugsApiController extends Controller
 
     public function show(Drug $drug)
     {
-        abort_if(Gate::denies('drug_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return new DrugResource($drug);
     }
 
@@ -48,8 +50,6 @@ class DrugsApiController extends Controller
 
     public function destroy(Drug $drug)
     {
-        abort_if(Gate::denies('drug_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $drug->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
@@ -59,10 +59,9 @@ class DrugsApiController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('drug_name');
-        $client = new Client();
 
         try {
-            $response = $client->get("https://rxnav.nlm.nih.gov/REST/drugs.json?name={$query}&expand=psn");
+            $response = $this->client->get("https://rxnav.nlm.nih.gov/REST/drugs.json?name={$query}&expand=psn");
             $data = json_decode($response->getBody(), true);
 
             $results = collect($data['drugGroup']['conceptGroup'])
