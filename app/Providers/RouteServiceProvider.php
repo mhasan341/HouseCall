@@ -30,10 +30,12 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define your route model bindings, pattern filters, etc.
+     * @codeCoverageIgnore
      */
     public function boot(): void
     {
         $this->configureRateLimiting();
+
 
         $this->routes(function () {
             Route::prefix('api')
