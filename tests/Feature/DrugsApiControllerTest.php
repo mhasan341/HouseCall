@@ -107,4 +107,125 @@ class DrugsApiControllerTest extends TestCase
             ]
         ]);
     }
+
+    public function test_search_failed()
+    {
+        $response = $this->getJson(route('drugs.search', ['drug_name' => 'InvalidDrugName']));
+
+        $response->assertStatus(500);
+        $response->assertJson([
+            'status' => false,
+            'message' => 'Failed to fetch medications'
+        ]);
+    }
+
+    public function test_save_user_medication()
+    {
+        // Create a user and a drug
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $drug = Drug::factory()->create(['rxcui' => '123456']);
+
+        // Authenticate as the created user
+        $this->actingAs($user);
+
+        // Send the request to save user medication
+        $response = $this->postJson(route('api.medication.save'), ['rxcui' => '123456']);
+
+        // Assert the response status
+        $response->assertStatus(201);
+        $response->assertJson([
+            'status' => true,
+            'message' => 'Medication saved successfully'
+        ]);
+
+        // Assert the drug_user table has the correct entry
+        $this->assertDatabaseHas('drug_user', [
+            'user_id' => $user->id,
+            'drug_id' => $drug->id
+        ]);
+    }
+
+    public function test_delete_user_medication()
+    {
+        // Create a user and a drug
+        $user = User::factory()->create();
+        $drug = Drug::factory()->create(['rxcui' => '123456']);
+
+        // Attach the drug to the user
+        $user->drugs()->attach($drug->id);
+
+        // Authenticate as the created user
+        $this->actingAs($user);
+
+        // Send the request to delete user medication
+        $response = $this->deleteJson(route('api.medication.delete'), ['rxcui' => '123456']);
+
+        // Assert the response status
+        $response->assertStatus(201);
+        $response->assertJson([
+            'status' => true,
+            'message' => 'Medication removed successfully'
+        ]);
+
+        // Assert the drug_user table does not have the entry
+        $this->assertDatabaseMissing('drug_user', [
+            'user_id' => $user->id,
+            'drug_id' => $drug->id
+        ]);
+    }
+
+
+    public function test_get_user_medication()
+    {
+        // Create a user and a drug
+        $user = User::factory()->create();
+        $drug = Drug::factory()->create(['rxcui' => '123456', 'name' => 'Aspirin']);
+
+        // Attach the drug to the user
+        $user->drugs()->attach($drug->id);
+
+        // Authenticate as the created user
+        $this->actingAs($user);
+
+        // Send the request to get user medications
+        $response = $this->getJson(route('api.medication.all'));
+
+        // Assert the response status
+        $response->assertStatus(200);
+        $response->assertJson([
+            'status' => true,
+            'data' => [
+                [
+                    'rxcui' => '123456',
+                    'name' => 'Aspirin'
+                ]
+            ]
+        ]);
+    }
+
+    public function test_get_medication_details()
+    {
+        // Create a user and a drug
+        $user = User::factory()->create();
+        $drug = Drug::factory()->create(['rxcui' => '123456', 'name' => 'Aspirin']);
+
+        // Authenticate as the created user
+        $this->actingAs($user);
+
+        // Send the request to get medication details
+        $response = $this->getJson(route('api.medication.details', ['rxcui' => '123456']));
+
+        // Assert the response status
+        $response->assertStatus(201);
+        $response->assertJson([
+            'status' => true,
+            'message' => 'Medication fetched successfully',
+            'data' => [
+                'rxcui' => '123456',
+                'name' => 'Aspirin'
+            ]
+        ]);
+    }
+
 }

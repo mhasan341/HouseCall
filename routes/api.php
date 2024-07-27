@@ -21,8 +21,8 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Drugs
     Route::apiResource('drugs', 'DrugsApiController');
     // Custom Drugs
-    Route::post('medication/save', [DrugsApiController::class, 'saveUserMedication']);
-    Route::delete('medication/delete', [DrugsApiController::class, 'deleteUserMedication']);
-    Route::get('medication/all', [DrugsApiController::class, 'getUserMedication']);
-    Route::get('medication/details', [DrugsApiController::class, 'getMedicationDetails']);
+    Route::post('medication/save', [DrugsApiController::class, 'saveUserMedication'])->name('medication.save');
+    Route::delete('medication/delete', [DrugsApiController::class, 'deleteUserMedication'])->name('medication.delete');
+    Route::get('medication/all', [DrugsApiController::class, 'getUserMedication'])->name('medication.all');
+    Route::get('medication/details', [DrugsApiController::class, 'getMedicationDetails'])->name('medication.details');
 });
