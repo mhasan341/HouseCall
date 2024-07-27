@@ -13,15 +13,8 @@ class HomeController
     {
         $totalUsers = 0;
 
-        if (Auth::user()->getIsAdminAttribute()){
-            $totalUsers = User::count();
-            $totalDrugs = Drug::get()->count();
-        } else {
-            $totalDrugs = Drug::where('user_id', Auth::id())->count();
-        }
-
-
-
+        $totalUsers = User::count();
+        $totalDrugs = Drug::get()->count();
 
         return view('home', compact('totalUsers', 'totalDrugs'));
     }

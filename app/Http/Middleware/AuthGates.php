@@ -3,6 +3,7 @@ namespace App\Http\Middleware;
 
 use App\Models\Role;
 use Closure;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class AuthGates
@@ -10,6 +11,17 @@ class AuthGates
     public function handle($request, Closure $next)
     {
         $user = auth()->user();
+
+        // Check if the authenticated user has the "User" role and we are not going to do it in test
+        // as we require that
+//
+//        if (Auth::check() && $user->hasRole('User')) {
+//            // Log out the user
+//            Auth::logout();
+//
+//            // Redirect to login page
+//            return redirect()->route('login');
+//        }
 
         if (! $user) {
             return $next($request);

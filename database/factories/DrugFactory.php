@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Drug;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+
 class DrugFactory extends Factory
 {
     protected $model = Drug::class;
@@ -12,12 +13,11 @@ class DrugFactory extends Factory
     public function definition()
     {
         return [
-            'rxcui' => $this->faker->randomNumber(),
-            'name' => $this->faker->word,
-            'description' => $this->faker->sentence,
-            'side_effects' => $this->faker->sentence,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'rxcui' => fake()->uuid(),
+            'name' => fake()->name(),
+            'synonym' => fake()->text(),
+            'language' => fake()->languageCode(),
+            'psn' => fake()->text(),
         ];
     }
 }
