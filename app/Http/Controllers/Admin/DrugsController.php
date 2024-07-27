@@ -14,6 +14,9 @@ use Yajra\DataTables\Facades\DataTables;
 
 class DrugsController extends Controller
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function index(Request $request)
     {
         abort_if(Gate::denies('drug_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

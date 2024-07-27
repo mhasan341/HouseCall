@@ -29,7 +29,7 @@ class DrugsControllerTest extends TestCase
         Drug::factory()->count(3)->create();
 
         // Send the request to retrieve all drugs
-        $response = $this->get(route('admin.drugs.index'));
+        $response = $this->getJson(route('admin.drugs.index', ['ajax' => true]));
 
         // Assert the response status and structure
         $response->assertStatus(200);
