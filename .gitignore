@@ -6,10 +6,10 @@
 /storage/app/public
 /storage/debugbar
 /storage/logs
-/storage/framework/cache/data
-/storage/framework/sessions
-/storage/framework/testing
-/storage/framework/views
+#/storage/framework/cache/data
+#/storage/framework/sessions
+#/storage/framework/testing
+#/storage/framework/views
 /bootstrap/cache/*.php
 .env
 .env.example
@@ -47,6 +47,4 @@ composer.phar
 
 # Mac
 .DS_Store
-
-/reports
 /tests/_output/
