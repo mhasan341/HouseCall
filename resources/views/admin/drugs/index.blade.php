@@ -98,18 +98,7 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-      ajax: {
-          url: "{{ route('admin.drugs.index') }}",
-          //type: "POST",
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          data: function (d) {
-              // Add any additional data parameters if needed
-              return JSON.stringify(d);
-          },
-          contentType: "application/json",
-      },
+    ajax: "{{ route('admin.drugs.index') }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
@@ -126,7 +115,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {
       let strict = $(this).attr('strict') || false
