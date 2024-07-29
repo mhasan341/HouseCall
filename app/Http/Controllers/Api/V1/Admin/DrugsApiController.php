@@ -85,7 +85,7 @@ class DrugsApiController extends Controller
 
             // saving to database for later use
             foreach ($results as $drug) {
-                    Drug::create([
+                    Drug::updateOrCreate([
                         'rxcui' => $drug["rxcui"],
                         'name' => $drug["name"],
                         'synonym' => $drug['synonym'],
