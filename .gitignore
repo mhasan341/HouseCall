@@ -47,6 +47,4 @@ composer.phar
 
 # Mac
 .DS_Store
-
-/reports
 /tests/_output/
